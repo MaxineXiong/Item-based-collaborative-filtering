@@ -32,21 +32,21 @@ def computeCosineSimilarity(df):
 
 
 # Function to get the movie name for a given movie ID
-def getMovieName(df, movieID):
-    return df.filter(F.col('movieId') == movieID).collect()[0].movieName
+def getMovieName(movieId):
+    return movieNamesDF.filter(F.col('movieId') == movieId).collect()[0].movieName
 
 
 # Function to print information about the top 10 movie recommendations for a given target movie
-def printRecommendations(results):
+def printRecommendations(results, targetMovieId):
     for result in results:
         # Determine the recommended movie ID
-        if result.movieId1 == movieID:
+        if result.movieId1 == targetMovieId:
             recommendedMovieId = result.movieId2
-        if result.movieId2 == movieID:
+        if result.movieId2 == targetMovieId:
             recommendedMovieId = result.movieId1
 
         # Get the movie name, similarity score, and strenth for each recommendation
-        recommendedMovieName = getMovieName(movieNamesDF, recommendedMovieId)
+        recommendedMovieName = getMovieName(recommendedMovieId)
         similarityScore = result.score
         strength = result.numPairs
 
@@ -73,7 +73,7 @@ def main():
                                      T.StructField('movieName', T.StringType())
                                     ])
 
-    # Read the movie names data into a spark dataframe
+    # Read the movie names data into a global spark dataframe
     global movieNamesDF
     movieNamesDF = spark.read.csv('./data/ml-100k/u.item', header = False, sep = '|', encoding = 'ISO-8859-1', schema = movieNamesSchema)
 
@@ -110,7 +110,6 @@ def main():
     # Check if a target movie ID is provided as a command-line argument
     if len(sys.argv) > 1:
         # Get the target movie ID for which we want to find similar movies
-        global movieID
         movieID = int(sys.argv[1])
         # Set the threshold for similarity score
         scoreThreshold = 0.97
@@ -130,17 +129,17 @@ def main():
         top10_viewers = moviePairsScoredDF_filtered.sort(F.desc('numPairs')).head(10)
 
         # Get the target movie name
-        targetMovieName = getMovieName(movieNamesDF, movieID)
+        targetMovieName = getMovieName(movieID)
 
         # Print information about the top 10 movie recommendations based on Cosine Similarity score
         print("Top 10 movie recommendations for {} based on Cosine Similarity score of ratings:\n".format(targetMovieName))
-        printRecommendations(top10_scores)
+        printRecommendations(top10_scores, movieID)
 
         print('=====================================================================================')
 
         # Print information about the top 10 movie recommendations based on number of shared viewers
         print("Top 10 movie recommendations for {} based on the number of shared viewers:\n".format(targetMovieName))
-        printRecommendations(top10_viewers)
+        printRecommendations(top10_viewers, movieID)
 
     else:
         # Error handling logging info
