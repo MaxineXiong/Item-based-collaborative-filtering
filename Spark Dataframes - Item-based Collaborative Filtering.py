@@ -109,7 +109,7 @@ def main():
 
     # Check if a target movie ID is provided as a command-line argument
     if len(sys.argv) > 1:
-        # Get the target movie ID for which we want to find similar movies
+        # Get the target movie ID for which we want to find movie recommendations
         movieID = int(sys.argv[1])
         # Set the threshold for similarity score
         scoreThreshold = 0.97
