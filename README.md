@@ -90,7 +90,7 @@ conda activate py38
 
 ### **Spark RDD - Item-based Collaborative Filtering.ipynb**
 
-The **Spark RDD - Item-based Collaborative Filtering.ipynb** is recommended to run on the Jupyter Notebook powered by an **Amazon EMR cluster**. This recommendation is due to the potential limitation of local machine resources, which may not have sufficient computing power to efficiently process a large movie dataset with 1 million rows using PySpark.
+The **Spark RDD - Item-based Collaborative Filtering.ipynb** is recommended to run on the Jupyter Notebook powered by an **[Amazon EMR cluster](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html)**. This recommendation is due to the potential limitation of local machine resources, which may not have sufficient computing power to efficiently process a large movie dataset with 1 million rows using PySpark.
 
 Running the item-based collaborative filtering algorithm on a local machine for such a large dataset might result in extended processing times and potential memory issues. On the other hand, leveraging an Amazon EMR cluster allows you to distribute the computation across multiple nodes, significantly speeding up the processing and handling the data-intensive task more efficiently.
 
