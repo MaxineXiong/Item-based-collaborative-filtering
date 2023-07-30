@@ -2,6 +2,7 @@
 
 [![GitHub](https://badgen.net/badge/icon/GitHub?icon=github&color=black&label)](https://github.com/MaxineXiong)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Made with Python](https://img.shields.io/static/v1?label=Python&message=>+3.6%2C+<%3D+3.8&color=%233776AB&logo=python&logoColor=white)](https://www.python.org)
 [![Apache Spark](https://img.shields.io/static/v1?label=&message=Apache+Spark&color=%23000000&logo=Apache+Spark&logoColor=%23E25A1C)](https://spark.apache.org/)
 
 <br>
